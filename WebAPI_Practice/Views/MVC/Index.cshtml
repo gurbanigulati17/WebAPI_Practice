@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<!--In this view we ll use jquery to read the WebAPI values-->
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<input type="text" name="name1" id="txt1" value=""/>
+<input type="button" name="name2" id="btn1" value="Get Names By id" />
+<input type="button" name="name3" id="btn2" value="Get All Names" />
+<ul id="names"></ul>
+<script>
+    $(document).ready(function () {
+
+        /*For retrieving all names*/
+        $("#btn2").click(function () {
+            $("#names").empty();
+            $.getJSON("/api/WebAPI/", function (data) {
+                $.each(data, function (key, val) {
+   
+                        $("<li>"+val+"</li> ").appendTo($("#names"));
+                 
+                })
+            })
+        })
+
+
+
+    /*For retrieveing names by id*/
+        $("#btn1").click(function () {
+            var id = $("#txt1").val();
+            $.getJSON("/api/WebAPI/" + id, function (data) {
+                alert(data);
+
+            } )
+
+        })
+    })
+</script>
